@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yılbaşı Çekilişi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Yılbaşı Çekilişi</h1>
+        <p>Grup kodunuzu girerek çekilişe katılabilirsiniz.</p>
+
+        <div id="join-group">
+            <input type="text" id="groupCode" placeholder="Grup Kodu">
+            <button onclick="joinGroup()">Gruba Katıl</button>
+        </div>
+
+        <div id="draw-lottery" style="display: none;">
+            <button onclick="drawLottery()">Kura Çek</button>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        let groupCode = "12345"; // Örnek grup kodu, dinamik yapılabilir.
+        let participants = ["Ahmet", "Ayşe", "Fatma", "Mehmet", "Ali", "Veli"];
+        let drawnNames = [];
+
+        function joinGroup() {
+            const inputCode = document.getElementById('groupCode').value;
+
+            if (inputCode === groupCode) {
+                alert("Gruba başarıyla katıldınız!");
+                document.getElementById('join-group').style.display = 'none';
+                document.getElementById('draw-lottery').style.display = 'block';
+            } else {
+                alert("Grup kodu yanlış. Lütfen tekrar deneyin.");
+            }
+        }
+
+        function drawLottery() {
+            if (participants.length === 0) {
+                document.getElementById('result').innerText = "Tüm katılımcılar kura çekti.";
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * participants.length);
+            const selectedName = participants[randomIndex];
+
+            drawnNames.push(selectedName);
+            participants.splice(randomIndex, 1);
+
+            document.getElementById('result').innerText = `Çekilen Kişi: ${selectedName}`;
+
+            if (participants.length > 0) {
+                alert("Bir sonraki kişi kurayı çekebilir.");
+            } else {
+                alert("Tüm isimler çekildi!");
+            }
+        }
+    </script>
+</body>
+</html>
